@@ -1,18 +1,23 @@
 import "./config";
 import { ApolloServer, gql } from "apollo-server";
+import {
+  resolvers as usersResolvers,
+  typeDefs as usersTypeDefs,
+} from "./services/users/users";
 
 const typeDefs = gql`
-  type User {
-    email: String!
+  type Query {
+    _empty: String
   }
 
-  type Query {
-    user: User
-  }
+  ${usersTypeDefs}
 `;
 
 const resolvers = {
-  Query: {},
+  Query: {
+    _empty: () => "⚠️ Useless query ⚠️",
+    ...usersResolvers.Query,
+  },
 };
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
