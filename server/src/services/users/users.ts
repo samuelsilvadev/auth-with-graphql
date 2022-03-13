@@ -8,11 +8,17 @@ export const typeDefs = gql`
 
   extend type Query {
     users: [User]
+    user(id: ID!): User
   }
 `;
 
+type UserQueryArgs = { id: string };
+
 export const resolvers = {
   Query: {
+    user: (_: unknown, { id }: UserQueryArgs) => {
+      return Fetch.get(`users/${id}`);
+    },
     users: () => {
       return Fetch.get("users");
     },
