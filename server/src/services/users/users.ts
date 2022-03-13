@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+import { generateHash } from "../auth/auth";
 import { Fetch } from "../common/fetch";
 
 export const typeDefs = gql`
@@ -29,11 +30,13 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createUser: (
+    createUser: async (
       _: unknown,
       { name, email, password }: CreateUserMutationArgs
     ) => {
-      return Fetch.post("users", { name, email, password });
+      const encryptedHash = await generateHash(password);
+
+      return Fetch.post("users", { name, email, hash: encryptedHash });
     },
   },
 };
