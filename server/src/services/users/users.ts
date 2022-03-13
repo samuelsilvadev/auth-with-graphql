@@ -10,9 +10,14 @@ export const typeDefs = gql`
     users: [User]
     user(id: ID!): User
   }
+
+  type Mutation {
+    createUser(name: String!, email: String!, password: String!): User
+  }
 `;
 
 type UserQueryArgs = { id: string };
+type CreateUserMutationArgs = { name: string; email: string; password: string };
 
 export const resolvers = {
   Query: {
@@ -21,6 +26,14 @@ export const resolvers = {
     },
     users: () => {
       return Fetch.get("users");
+    },
+  },
+  Mutation: {
+    createUser: (
+      _: unknown,
+      { name, email, password }: CreateUserMutationArgs
+    ) => {
+      return Fetch.post("users", { name, email, password });
     },
   },
 };

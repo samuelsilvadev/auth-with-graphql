@@ -18,6 +18,9 @@ const resolvers = {
     _empty: () => "⚠️ Useless query ⚠️",
     ...usersResolvers.Query,
   },
+  Mutation: {
+    ...usersResolvers.Mutation,
+  },
 };
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
