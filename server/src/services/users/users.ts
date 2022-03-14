@@ -1,5 +1,5 @@
 import { gql } from "apollo-server";
-import { generateHash } from "../auth/auth";
+import { generateHash } from "../auth/auth-utilities";
 import { Fetch } from "../common/fetch";
 
 export const typeDefs = gql`

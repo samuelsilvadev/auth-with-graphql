@@ -4,7 +4,36 @@
       "id": 1,
       "name": "Samuel Silva",
       "email": "samuel@dev.com",
-      "password": ""
+      "hash": ""
+    },
+    {
+      "name": "Joao",
+      "email": "joao2@dev.com",
+      "hash": "$2b$10$r.1edl1JIpJ4jpXarBwts.gT9/a50r2vGhUoKOQ6Otwp3dU8PgJxq",
+      "id": 2
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "userId": 2,
+      "createdAt": "2020-03-14T19:00:00.000Z",
+      "validUntil": "2020-03-14T19:00:00.000Z",
+      "signedOut": true
+    },
+    {
+      "userId": 2,
+      "createdAt": "2022-03-14T22:32:25.107Z",
+      "validUntil": "2022-03-14T23:02:25.107Z",
+      "signedOut": true,
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "createdAt": "2022-03-14T22:34:59.608Z",
+      "validUntil": "2022-03-14T23:04:59.608Z",
+      "signedOut": false,
+      "id": 3
     }
   ]
 }

@@ -4,6 +4,10 @@ import {
   resolvers as usersResolvers,
   typeDefs as usersTypeDefs,
 } from "./services/users/users";
+import {
+  resolvers as authResolvers,
+  typeDefs as authTypeDefs,
+} from "./services/auth/auth";
 
 const typeDefs = gql`
   type Query {
@@ -11,6 +15,7 @@ const typeDefs = gql`
   }
 
   ${usersTypeDefs}
+  ${authTypeDefs}
 `;
 
 const resolvers = {
@@ -20,6 +25,7 @@ const resolvers = {
   },
   Mutation: {
     ...usersResolvers.Mutation,
+    ...authResolvers.Mutation,
   },
 };
 
