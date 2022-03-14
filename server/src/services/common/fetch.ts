@@ -15,4 +15,16 @@ export class Fetch {
         "content-type": "application/json",
       },
     });
+
+  static patch = (
+    endpoint: string,
+    body: Record<string, string | number | boolean>
+  ) =>
+    Fetch.get(endpoint, {
+      body: JSON.stringify(body),
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
 }
