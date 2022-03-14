@@ -32,8 +32,15 @@
       "userId": 2,
       "createdAt": "2022-03-14T22:34:59.608Z",
       "validUntil": "2022-03-14T23:04:59.608Z",
-      "signedOut": false,
+      "signedOut": true,
       "id": 3
+    },
+    {
+      "userId": 2,
+      "createdAt": "2022-03-14T22:48:38.068Z",
+      "validUntil": "2022-03-14T23:18:38.068Z",
+      "signedOut": true,
+      "id": 4
     }
   ]
 }
