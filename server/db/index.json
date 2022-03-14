@@ -41,6 +41,20 @@
       "validUntil": "2022-03-14T23:18:38.068Z",
       "signedOut": true,
       "id": 4
+    },
+    {
+      "userId": 2,
+      "createdAt": "2022-03-14T23:10:26.356Z",
+      "validUntil": "2022-03-14T23:40:26.356Z",
+      "signedOut": true,
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "createdAt": "2022-03-14T23:12:06.767Z",
+      "validUntil": "2022-03-14T23:12:06.767Z",
+      "signedOut": false,
+      "id": 6
     }
   ]
 }

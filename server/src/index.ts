@@ -22,6 +22,7 @@ const resolvers = {
   Query: {
     _empty: () => "⚠️ Useless query ⚠️",
     ...usersResolvers.Query,
+    ...authResolvers.Query,
   },
   Mutation: {
     ...usersResolvers.Mutation,
