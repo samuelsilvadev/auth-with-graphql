@@ -30,7 +30,7 @@ export const typeDefs = gql`
 
 async function isSessionStillValid(userId: number) {
   const [userSession]: [Session | undefined] = await Fetch.get(
-    `sessions?userId=${userId}&signedOut=false`
+    `sessions?userId=${userId}&signedOut=false&_sort=createdAt&_order=desc`
   );
 
   if (userSession) {
