@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.2...server@v0.0.3) (2022-03-18)
+
+
+### Bug Fixes
+
+* **server:** always get last attempt of user session to validate if a session is still valid ([b791fea](https://github.com/samuelsilvadev/auth-with-graphql/commit/b791fea3a7f4cc12705ad8c05ea05bd4eefd304a))
+
 ### [0.0.2](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.1...server@v0.0.2) (2022-03-14)
 
 
