@@ -1,4 +1,5 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link } from "@chakra-ui/react";
+import LogoutButton from "components/logout-button/LogoutButton";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "state/auth/AuthContext";
 
@@ -43,7 +44,7 @@ function Header() {
             </>
           ) : (
             <li>
-              <Button>Logout</Button>
+              <LogoutButton />
             </li>
           )}
         </Flex>
