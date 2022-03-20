@@ -3,16 +3,20 @@ import { useGetLoggedInUser } from "./useGetLoggedInUser";
 
 type TAuthContext = {
   email: string | null;
+  password: string | null;
   isAuthenticated: boolean;
   saveUserCredentials: (email: string, password: string) => void;
+  removeUserCredentials: () => void;
 };
 type TAuthProviderProps = { children: React.ReactNode };
 type TUserCredentials = { email: string | null; password: string | null };
 
 const AuthContext = createContext<TAuthContext>({
   email: null,
+  password: null,
   isAuthenticated: false,
   saveUserCredentials: () => void 0,
+  removeUserCredentials: () => void 0,
 });
 
 function getUserFromStorage(): {
@@ -20,7 +24,7 @@ function getUserFromStorage(): {
   password: string | null;
 } | null {
   try {
-    const user = window.localStorage.getItem("AWG_USER");
+    const user = window.sessionStorage.getItem("AWG_USER");
 
     if (user) {
       return JSON.parse(user);
@@ -44,18 +48,24 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
   const saveUserCredentials = (email: string, password: string) => {
     setUserCredentials({ email, password });
 
-    window.localStorage.setItem(
+    window.sessionStorage.setItem(
       "AWG_USER",
       JSON.stringify({ email, password })
     );
+  };
+
+  const removeUserCredentials = () => {
+    window.sessionStorage.removeItem("AWG_USER");
   };
 
   return (
     <AuthContext.Provider
       value={{
         email: userCredentials?.email ?? null,
+        password: userCredentials?.password ?? null,
         isAuthenticated: !loading && !!data?.loggedInUser,
         saveUserCredentials,
+        removeUserCredentials,
       }}
     >
       {children}

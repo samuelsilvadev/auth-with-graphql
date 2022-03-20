@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "state/auth/AuthContext";
+import { useGetLoggedInUser } from "state/auth/useGetLoggedInUser";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
@@ -12,12 +13,13 @@ const SIGN_IN_MUTATION = gql`
 `;
 
 function SignIn() {
-  const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
-  const { saveUserCredentials } = useAuth();
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
+  const { saveUserCredentials } = useAuth();
+  const { refetch } = useGetLoggedInUser({ email, password });
+  const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ function SignIn() {
       },
     }).then(() => {
       saveUserCredentials(email, password);
+      refetch();
       navigate("/");
     });
   };

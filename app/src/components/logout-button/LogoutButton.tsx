@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "state/auth/AuthContext";
+import { useGetLoggedInUser } from "state/auth/useGetLoggedInUser";
 
 const LOGOUT_MUTATION = gql`
   mutation Logout($email: String!) {
@@ -11,14 +12,18 @@ const LOGOUT_MUTATION = gql`
 `;
 
 function LogoutButton() {
-  const { email } = useAuth();
+  const { email, password, removeUserCredentials } = useAuth();
   const [logout, { loading }] = useMutation(LOGOUT_MUTATION);
+  const { refetch } = useGetLoggedInUser({ email, password });
 
   const handleOnLogout = () => {
     logout({
       variables: {
         email,
       },
+    }).then(() => {
+      removeUserCredentials();
+      refetch();
     });
   };
 
