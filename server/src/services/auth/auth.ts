@@ -109,7 +109,7 @@ export const resolvers = {
 
       if (user) {
         const [userSession]: [Session | undefined] = await Fetch.get(
-          `sessions?userId=${user.id}&signedOut=false`
+          `sessions?userId=${user.id}&signedOut=false&_sort=createdAt&_order=desc`
         );
 
         if (userSession) {
