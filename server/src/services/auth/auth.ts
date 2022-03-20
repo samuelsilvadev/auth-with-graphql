@@ -35,8 +35,7 @@ async function isSessionStillValid(userId: number) {
 
   if (userSession) {
     const isSessionStillValid =
-      new Date(userSession.createdAt).getTime() <
-      new Date(userSession.validUntil).getTime();
+      new Date(userSession.validUntil).getTime() > Date.now();
 
     return isSessionStillValid;
   }
