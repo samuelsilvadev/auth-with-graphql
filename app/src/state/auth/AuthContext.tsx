@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useGetLoggedInUser } from "./useGetLoggedInUser";
 
 type TAuthContext = {
+  email: string | null;
   isAuthenticated: boolean;
   saveUserCredentials: (email: string, password: string) => void;
 };
@@ -9,6 +10,7 @@ type TAuthProviderProps = { children: React.ReactNode };
 type TUserCredentials = { email: string | null; password: string | null };
 
 const AuthContext = createContext<TAuthContext>({
+  email: null,
   isAuthenticated: false,
   saveUserCredentials: () => void 0,
 });
@@ -31,12 +33,12 @@ function getUserFromStorage(): {
 }
 
 export const AuthProvider = ({ children }: TAuthProviderProps) => {
-  const [userCredential, setUserCredentials] =
+  const [userCredentials, setUserCredentials] =
     useState<TUserCredentials | null>(getUserFromStorage());
 
   const { data, loading } = useGetLoggedInUser({
-    email: userCredential?.email ?? null,
-    password: userCredential?.password ?? null,
+    email: userCredentials?.email ?? null,
+    password: userCredentials?.password ?? null,
   });
 
   const saveUserCredentials = (email: string, password: string) => {
@@ -51,6 +53,7 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
   return (
     <AuthContext.Provider
       value={{
+        email: userCredentials?.email ?? null,
         isAuthenticated: !loading && !!data?.loggedInUser,
         saveUserCredentials,
       }}
