@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../state/auth/AuthContext";
+import { useAuth } from "state/auth/AuthContext";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {

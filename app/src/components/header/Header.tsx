@@ -1,4 +1,4 @@
-import { useAuth } from "../../state/auth/AuthContext";
+import { useAuth } from "state/auth/AuthContext";
 
 function Header() {
   const { isAuthenticated } = useAuth();
