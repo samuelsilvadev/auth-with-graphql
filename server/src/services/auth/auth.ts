@@ -1,8 +1,9 @@
 import { gql } from "apollo-server";
 import { Fetch } from "../common/fetch";
-import { isPasswordCorrect } from "./auth-utilities";
+import { generateHash, isPasswordCorrect } from "./auth-utilities";
 
 type UserQueryArgs = { email: string; password: string };
+type SignUpMutationArgs = { email: string; password: string };
 type SignInMutationArgs = { email: string; password: string };
 type SignOutMutationArgs = { email: string };
 type User = { id: number; name: string; email: string; hash: string };
@@ -23,6 +24,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    signUp(email: String!, password: String!): User
     signIn(email: String!, password: String!): User
     signOut(email: String!): User
   }
@@ -83,6 +85,19 @@ export const resolvers = {
     },
   },
   Mutation: {
+    signUp: async (_: unknown, { email, password }: SignUpMutationArgs) => {
+      const encryptedHash = await generateHash(password);
+
+      const newlyCreatedUser = await Fetch.post("users", {
+        name: "",
+        email,
+        hash: encryptedHash,
+      });
+
+      await createNewSession(newlyCreatedUser.id);
+
+      return newlyCreatedUser;
+    },
     signIn: async (_: unknown, { email, password }: SignInMutationArgs) => {
       const [user]: [User | undefined] =
         (await Fetch.get(`users?email=${email}`)) || [];
