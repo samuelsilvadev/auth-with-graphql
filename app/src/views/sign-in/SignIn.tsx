@@ -1,7 +1,8 @@
-import { ApolloError, gql, useMutation } from "@apollo/client";
-import AuthForm, { TOnSubmitValues } from "components/auth-form/AuthForm";
-import { useEffect, useRef, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import AuthForm, { TOnSubmitValues } from "components/auth-form/AuthForm";
+import { useHandleAuthErrors } from "components/auth-form/useHandleAuthErrors";
+import { useDelayedLoading } from "hooks/useDelayedLoading";
 import { useAuth } from "state/auth/AuthContext";
 import { GET_USER_QUERY } from "state/auth/useGetLoggedInUser";
 
@@ -13,27 +14,16 @@ const SIGN_IN_MUTATION = gql`
   }
 `;
 
-const ERRORS_TIMER_DURATION = 500;
-
 function SignIn() {
-  const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
+  const [signIn, { loading: signLoading }] = useMutation(SIGN_IN_MUTATION);
   const { saveUserCredentials } = useAuth();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState<string[] | undefined>();
-  const setErrorTimerIdRef = useRef<number | undefined>();
 
-  useEffect(
-    () => () => {
-      if (setErrorTimerIdRef.current) {
-        window.clearTimeout(setErrorTimerIdRef.current);
-      }
-    },
-    []
-  );
+  const loading = useDelayedLoading(signLoading);
+  const { errors, catchError, cleanErrors } = useHandleAuthErrors();
 
   const handleSubmit = ({ email, password }: TOnSubmitValues) => {
-    window.clearTimeout(setErrorTimerIdRef.current);
-    setErrors(undefined);
+    cleanErrors();
 
     signIn({
       variables: {
@@ -54,16 +44,7 @@ function SignIn() {
         saveUserCredentials(email, password);
         navigate("/");
       })
-      .catch((error) => {
-        setErrorTimerIdRef.current = window.setTimeout(() => {
-          const safeError = error as ApolloError;
-          const errorMessages = safeError.graphQLErrors.map(
-            (error) => error.message
-          );
-
-          setErrors(errorMessages);
-        }, ERRORS_TIMER_DURATION);
-      });
+      .catch(catchError);
   };
 
   return (
