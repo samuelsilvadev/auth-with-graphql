@@ -43,6 +43,10 @@ async function isSessionStillValid(userId: number) {
   return false;
 }
 
+function throwInvalidCredentials(): never {
+  throw new Error("Invalid credentials");
+}
+
 async function createNewSession(userId: number) {
   const validUntil = new Date();
   validUntil.setMinutes(validUntil.getMinutes() + 30);
@@ -61,21 +65,21 @@ export const resolvers = {
       const [user]: [User | undefined] =
         (await Fetch.get(`users?email=${email}`)) || [];
 
-      if (user) {
-        const _isPasswordCorrect = await isPasswordCorrect(password, user.hash);
-
-        if (!_isPasswordCorrect) {
-          return null;
-        }
-
-        const _isSessionStillValid = await isSessionStillValid(user.id);
-
-        if (_isSessionStillValid) {
-          return user;
-        }
+      if (!user) {
+        throwInvalidCredentials();
       }
 
-      return null;
+      const _isPasswordCorrect = await isPasswordCorrect(password, user.hash);
+
+      if (!_isPasswordCorrect) {
+        throwInvalidCredentials();
+      }
+
+      const _isSessionStillValid = await isSessionStillValid(user.id);
+
+      if (_isSessionStillValid) {
+        return user;
+      }
     },
   },
   Mutation: {
@@ -83,25 +87,25 @@ export const resolvers = {
       const [user]: [User | undefined] =
         (await Fetch.get(`users?email=${email}`)) || [];
 
-      if (user) {
-        const _isPasswordCorrect = await isPasswordCorrect(password, user.hash);
+      if (!user) {
+        throwInvalidCredentials();
+      }
 
-        if (!_isPasswordCorrect) {
-          return null;
-        }
+      const _isPasswordCorrect = await isPasswordCorrect(password, user.hash);
 
-        const _isSessionStillValid = await isSessionStillValid(user.id);
+      if (!_isPasswordCorrect) {
+        throwInvalidCredentials();
+      }
 
-        if (_isSessionStillValid) {
-          return user;
-        }
+      const _isSessionStillValid = await isSessionStillValid(user.id);
 
-        await createNewSession(user.id);
-
+      if (_isSessionStillValid) {
         return user;
       }
 
-      return null;
+      await createNewSession(user.id);
+
+      return user;
     },
     signOut: async (_: unknown, { email }: SignOutMutationArgs) => {
       const [user]: [User | undefined] =
