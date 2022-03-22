@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.3...server@v0.0.4) (2022-03-22)
+
+
+### Features
+
+* **server:** create sign up mutation ([6c09418](https://github.com/samuelsilvadev/auth-with-graphql/commit/6c09418c6fe15167d949791505a31aa722efe2a0))
+* **server:** improve error handling when user is not valid ([46b0dfb](https://github.com/samuelsilvadev/auth-with-graphql/commit/46b0dfb400b2c4f07e93d9f9e819f4c16ee3012a))
+
+
+### Bug Fixes
+
+* **server:** always sign out from the last active session ([8063a3a](https://github.com/samuelsilvadev/auth-with-graphql/commit/8063a3a092dc5a508790ed5c75670ea84a482dac))
+* **server:** compare `validUntil` from session with `now` time` ([e38ffee](https://github.com/samuelsilvadev/auth-with-graphql/commit/e38ffee12a88121b8fba36620ed80d74c6ff797e))
+
 ### [0.0.3](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.2...server@v0.0.3) (2022-03-18)
 
 
