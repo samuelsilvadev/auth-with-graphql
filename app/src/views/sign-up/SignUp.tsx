@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Heading } from "@chakra-ui/react";
 import AuthForm, { TOnSubmitValues } from "components/auth-form/AuthForm";
 import { useHandleAuthErrors } from "components/auth-form/useHandleAuthErrors";
 import { useAuth } from "state/auth/AuthContext";
@@ -48,12 +49,17 @@ function SignUp() {
   };
 
   return (
-    <AuthForm
-      onSubmit={handleOnSubmit}
-      submitLoading={loading && !errors}
-      submitText="Sign up"
-      errors={errors}
-    />
+    <>
+      <Heading as="h1" marginBlockEnd="4">
+        Sign up
+      </Heading>
+      <AuthForm
+        onSubmit={handleOnSubmit}
+        submitLoading={loading && !errors}
+        submitText="Sign up"
+        errors={errors}
+      />
+    </>
   );
 }
 

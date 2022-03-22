@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Heading } from "@chakra-ui/react";
 import AuthForm, { TOnSubmitValues } from "components/auth-form/AuthForm";
 import { useHandleAuthErrors } from "components/auth-form/useHandleAuthErrors";
 import { useDelayedLoading } from "hooks/useDelayedLoading";
@@ -48,12 +49,17 @@ function SignIn() {
   };
 
   return (
-    <AuthForm
-      onSubmit={handleSubmit}
-      submitLoading={loading && !errors}
-      submitText="Sign in"
-      errors={errors}
-    />
+    <>
+      <Heading as="h1" marginBlockEnd="4">
+        Sign in
+      </Heading>
+      <AuthForm
+        onSubmit={handleSubmit}
+        submitLoading={loading && !errors}
+        submitText="Sign in"
+        errors={errors}
+      />
+    </>
   );
 }
 
