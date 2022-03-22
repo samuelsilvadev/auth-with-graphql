@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Button,
   FormControl,
   FormLabel,
@@ -13,12 +16,18 @@ export type TOnSubmitValues = {
 };
 
 type TAuthFormProps = {
+  errors?: string[];
   submitLoading: boolean;
   submitText: string;
   onSubmit: (values: TOnSubmitValues) => void;
 };
 
-function AuthForm({ submitText, submitLoading, onSubmit }: TAuthFormProps) {
+function AuthForm({
+  submitText,
+  submitLoading,
+  errors,
+  onSubmit,
+}: TAuthFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,43 +38,53 @@ function AuthForm({ submitText, submitLoading, onSubmit }: TAuthFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <VStack spacing="12px" align="start">
-        <FormControl isRequired>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            borderRadius="0"
-            borderColor="black"
-            borderWidth="2px"
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <Input
-            borderRadius="0"
-            borderColor="black"
-            borderWidth="2px"
-            id="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-          />
-        </FormControl>
-        <Button type="submit" isLoading={submitLoading}>
-          {submitText}
-        </Button>
-      </VStack>
-    </form>
+    <>
+      {errors?.map((error) => {
+        return (
+          <Alert key={error} status="error" marginBlockEnd="2">
+            <AlertIcon />
+            <AlertTitle>{error}</AlertTitle>
+          </Alert>
+        );
+      })}
+      <form onSubmit={handleSubmit}>
+        <VStack spacing="12px" align="start">
+          <FormControl isRequired>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <Input
+              borderRadius="0"
+              borderColor="black"
+              borderWidth="2px"
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <Input
+              borderRadius="0"
+              borderColor="black"
+              borderWidth="2px"
+              id="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
+          </FormControl>
+          <Button type="submit" isLoading={submitLoading}>
+            {submitText}
+          </Button>
+        </VStack>
+      </form>
+    </>
   );
 }
 
