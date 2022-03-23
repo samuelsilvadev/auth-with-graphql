@@ -40,10 +40,11 @@ function SignIn() {
           },
         },
       ],
+      awaitRefetchQueries: true,
     })
       .then(() => {
         saveUserCredentials(email, password);
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch(catchError);
   };

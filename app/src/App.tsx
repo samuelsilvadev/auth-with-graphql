@@ -4,6 +4,7 @@ import Layout from "components/layout/Layout";
 import { AuthProvider } from "state/auth/AuthContext";
 
 const Home = lazy(() => import("views/home/Home"));
+const Dashboard = lazy(() => import("views/dashboard/Dashboard"));
 const SignIn = lazy(() => import("views/sign-in/SignIn"));
 const SignUp = lazy(() => import("views/sign-up/SignUp"));
 
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Route>
