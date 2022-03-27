@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/samuelsilvadev/auth-with-graphql/compare/app@v0.0.2...app@v0.0.3) (2022-03-27)
+
+
+### Features
+
+* **app:** restrict routes to be accessed only if user is authenticated ([4a1075a](https://github.com/samuelsilvadev/auth-with-graphql/commit/4a1075a4c22011f6246deeae131a61266c20df3b))
+
 ### [0.0.2](https://github.com/samuelsilvadev/auth-with-graphql/compare/app@v0.0.1...app@v0.0.2) (2022-03-23)
 
 
