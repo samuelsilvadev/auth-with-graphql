@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "components/layout/Layout";
 import { AuthProvider } from "state/auth/AuthContext";
 import OnlyAuthenticated from "components/only-authenticated/OnlyAuthenticated";
+import OnlyNotAuthenticated from "components/only-not-authenticated/OnlyNotAuthenticated";
 
 const Home = lazy(() => import("views/home/Home"));
 const Dashboard = lazy(() => import("views/dashboard/Dashboard"));
@@ -24,8 +25,14 @@ function App() {
             path="/profile"
             element={<OnlyAuthenticated element={<Profile />} />}
           />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route
+            path="/sign-in"
+            element={<OnlyNotAuthenticated element={<SignIn />} />}
+          />
+          <Route
+            path="/sign-up"
+            element={<OnlyNotAuthenticated element={<SignUp />} />}
+          />
         </Route>
       </Routes>
     </AuthProvider>

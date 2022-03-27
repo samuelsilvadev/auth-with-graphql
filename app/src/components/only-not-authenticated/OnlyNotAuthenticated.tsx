@@ -3,26 +3,26 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "state/auth/AuthContext";
 import LoadingFallback from "components/loading-fallback/LoadingFallback";
 
-type TOnlyAuthenticatedProps = {
+type TOnlyNotAuthenticatedProps = {
   fallback?: ReactElement | null;
   element: ReactElement;
 };
 
-function OnlyAuthenticated({
+function OnlyNotAuthenticated({
   element,
   fallback = <LoadingFallback withoutStyles />,
-}: TOnlyAuthenticatedProps) {
+}: TOnlyNotAuthenticatedProps) {
   const { isAuthenticated, isAuthenticationLoading } = useAuth();
 
   if (isAuthenticationLoading) {
     return fallback;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/sign-in" />;
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
   }
 
   return element;
 }
 
-export default OnlyAuthenticated;
+export default OnlyNotAuthenticated;

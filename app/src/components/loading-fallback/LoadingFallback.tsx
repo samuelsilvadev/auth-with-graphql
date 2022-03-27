@@ -1,13 +1,19 @@
 import { Box } from "@chakra-ui/react";
 
-function LoadingFallback() {
+type TLoadingFallbackProps = {
+  withoutStyles?: boolean;
+};
+
+function LoadingFallback({ withoutStyles = false }: TLoadingFallbackProps) {
   return (
     <Box
-      marginBlockStart="4"
-      borderWidth="2px"
-      borderStyle="solid"
-      borderColor="black"
-      p="2"
+      {...(!withoutStyles && {
+        marginBlockStart: "4",
+        borderWidth: "2px",
+        borderStyle: "solid",
+        borderColor: "black",
+        p: "2",
+      })}
     >
       Loading...
     </Box>
