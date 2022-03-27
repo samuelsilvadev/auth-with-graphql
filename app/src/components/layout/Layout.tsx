@@ -2,12 +2,13 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { Box, Container } from "@chakra-ui/react";
 import Header from "components/header/Header";
+import LoadingFallback from "components/loading-fallback/LoadingFallback";
 
 function Layout() {
   return (
     <Container p="4" maxW="container.lg">
       <Header />
-      <Suspense fallback="loading...">
+      <Suspense fallback={<LoadingFallback />}>
         <Box
           marginBlockStart="4"
           borderWidth="2px"

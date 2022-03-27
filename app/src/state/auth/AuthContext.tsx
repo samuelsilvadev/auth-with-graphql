@@ -5,6 +5,7 @@ type TAuthContext = {
   email: string | null;
   password: string | null;
   isAuthenticated: boolean;
+  isAuthenticationLoading: boolean;
   saveUserCredentials: (email: string, password: string) => void;
   removeUserCredentials: () => void;
 };
@@ -15,6 +16,7 @@ const AuthContext = createContext<TAuthContext>({
   email: null,
   password: null,
   isAuthenticated: false,
+  isAuthenticationLoading: true,
   saveUserCredentials: () => void 0,
   removeUserCredentials: () => void 0,
 });
@@ -64,6 +66,7 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
         email: userCredentials?.email ?? null,
         password: userCredentials?.password ?? null,
         isAuthenticated: !loading && !!data?.loggedInUser,
+        isAuthenticationLoading: loading,
         saveUserCredentials,
         removeUserCredentials,
       }}
