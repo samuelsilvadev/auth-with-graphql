@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.4...server@v0.0.5) (2022-03-28)
+
+
+### Features
+
+* **server:** validate if email already exists before sign up ([365f872](https://github.com/samuelsilvadev/auth-with-graphql/commit/365f8724bbbb62a73f8441af3b9c8777e32d7985))
+
 ### [0.0.4](https://github.com/samuelsilvadev/auth-with-graphql/compare/server@v0.0.3...server@v0.0.4) (2022-03-22)
 
 
