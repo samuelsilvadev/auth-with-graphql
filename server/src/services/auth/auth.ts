@@ -49,6 +49,10 @@ function throwInvalidCredentials(): never {
   throw new Error("Invalid credentials");
 }
 
+function throwEmailAlreadyExists(): never {
+  throw new Error("Email already in use 😭");
+}
+
 async function createNewSession(userId: number) {
   const validUntil = new Date();
   validUntil.setMinutes(validUntil.getMinutes() + 30);
@@ -86,6 +90,13 @@ export const resolvers = {
   },
   Mutation: {
     signUp: async (_: unknown, { email, password }: SignUpMutationArgs) => {
+      const [user]: [User | undefined] =
+        (await Fetch.get(`users?email=${email}`)) || [];
+
+      if (user) {
+        throwEmailAlreadyExists();
+      }
+
       const encryptedHash = await generateHash(password);
 
       const newlyCreatedUser = await Fetch.post("users", {
